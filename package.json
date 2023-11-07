@@ -1,0 +1,15 @@
+{
+  "name": "vue3-cy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "esbuild src/index.js --bundle --outdir=dist --watch --sourcemap",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.19.5"
+  }
+}
