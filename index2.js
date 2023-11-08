@@ -3,7 +3,7 @@ const { computed, watch, createElementBlock, createElementVNode, ref, reactive }
 // debugger
 Vue.createApp({
     setup() {
-        const obj = reactive({a: 1})
+        const obj = reactive({a: 1, b: 2})
         // const msg = ref('msg from setup')
         // const arr = reactive([1,2])
         const count = ref(1)
@@ -33,7 +33,7 @@ Vue.createApp({
     },
     methods: {
         changeMsg() {
-            this.obj['b'] = 2
+            delete this.obj['a']
             // this.count++
             // this.arr.push(4)
             // console.log('computed', this.plusOne)

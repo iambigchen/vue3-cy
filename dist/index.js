@@ -187,7 +187,14 @@
       }
       return result;
     },
-    deleteProperty() {
+    deleteProperty(target, key) {
+      const hadKey = hasOwn(target, key);
+      const oldValue2 = target[key];
+      const result = Reflect.deleteProperty(target, key);
+      if (result && hadKey) {
+        trigger(target, "delete", key, void 0, oldValue2);
+      }
+      return result;
     },
     has() {
     },

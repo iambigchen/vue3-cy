@@ -123,8 +123,14 @@ function createReactiveObject(
         }
         return result
     },
-    deleteProperty () {
-
+    deleteProperty (target, key) {
+        const hadKey = hasOwn(target, key)
+        const oldValue = target[key]
+        const result = Reflect.deleteProperty(target, key)
+        if (result && hadKey) {
+            trigger(target, 'delete', key, undefined, oldValue)
+        }
+        return result
     },
     has () {
 
