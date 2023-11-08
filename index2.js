@@ -3,6 +3,7 @@ const { computed, watch, createElementBlock, createElementVNode, ref, reactive }
 // debugger
 Vue.createApp({
     setup() {
+        const obj = reactive({a: 1})
         // const msg = ref('msg from setup')
         // const arr = reactive([1,2])
         const count = ref(1)
@@ -22,6 +23,7 @@ Vue.createApp({
             }
         })
         return {
+            obj,
             plusOne,
             plusTwo,
             count,
@@ -31,7 +33,8 @@ Vue.createApp({
     },
     methods: {
         changeMsg() {
-            this.count++
+            this.obj['b'] = 2
+            // this.count++
             // this.arr.push(4)
             // console.log('computed', this.plusOne)
             // console.log('computed2', this.plusTwo)
@@ -39,7 +42,7 @@ Vue.createApp({
     },
     render: (_ctx, _cache) => {
         return createElementBlock("div", null, [
-            createElementVNode("p", null, String(_ctx.plusTwo), 1 /* TEXT */),
+            createElementVNode("p", null, Object.values(_ctx.obj).join(''), 1 /* TEXT */),
             createElementVNode("button", { onClick: _ctx.changeMsg }, "点击试试", 8 /* PROPS */, ["onClick"])
         ])
     }

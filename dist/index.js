@@ -191,11 +191,14 @@
     },
     has() {
     },
-    ownKeys() {
+    ownKeys(target) {
+      track(target, "iterate", Array.isArray(target) ? "length" : ITERATE_KEY);
+      return Reflect.ownKeys(target);
     }
   };
 
   // src/effect.js
+  var ITERATE_KEY = Symbol("iterate");
   var targetMap = /* @__PURE__ */ new WeakMap();
   var effectTrackDepth = 0;
   var trackOpBit = 1;
@@ -289,6 +292,7 @@
       switch (type) {
         case "add":
           if (!Array.isArray(target)) {
+            deps.push(depsMap.get(ITERATE_KEY));
           } else if (isIntegerKey(key)) {
             deps.push(depsMap.get("length"));
           }

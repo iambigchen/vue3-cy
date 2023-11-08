@@ -1,4 +1,4 @@
-import { track, trigger, pauseTracking, resetTracking } from './effect'
+import { track, trigger, pauseTracking, resetTracking, ITERATE_KEY } from './effect'
 import { hasChanged, toRaw } from './index'
 import { isRef, hasOwn } from './component'
 export const reactiveMap = new WeakMap()
@@ -129,7 +129,8 @@ function createReactiveObject(
     has () {
 
     },
-    ownKeys () {
-
+    ownKeys (target) {
+        track(target, 'iterate', Array.isArray(target) ? 'length' : ITERATE_KEY)
+        return Reflect.ownKeys(target)
     }
   }

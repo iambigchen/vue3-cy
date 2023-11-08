@@ -1,6 +1,8 @@
 import { toRaw }  from './index'
 import { isIntegerKey } from './reactive';
 
+
+export const ITERATE_KEY = Symbol('iterate')
 const targetMap = new WeakMap();
 let effectTrackDepth = 0;
 let trackOpBit = 1;
@@ -113,7 +115,7 @@ export function trigger (target, type, key, newValue, oldValue, oldTarget) {
     switch (type) {
       case 'add':
         if (!Array.isArray(target)) {
-
+          deps.push(depsMap.get(ITERATE_KEY))
         } else if (isIntegerKey(key)) {
           deps.push(depsMap.get('length'))
         }
